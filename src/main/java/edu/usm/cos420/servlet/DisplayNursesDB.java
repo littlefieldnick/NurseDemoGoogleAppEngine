@@ -40,10 +40,13 @@ public class DisplayNursesDB extends HttpServlet {
         HttpSession sess = request.getSession();
         ServletContext sc = getServletContext();
      	ArrayList<Nurse> nurseList = new ArrayList<Nurse>();
+     	
 		try {
 			String connect = this.getServletContext().getInitParameter("sql.urlRemote");
+			NurseTableGateway gateway = new NurseTableGateway(connect);
+					
 			System.out.println("Connection to Database: " +  connect);
-			nurseList = NurseTableGateway.getAllNurses(connect); 
+			nurseList = gateway.getAllNurses(); 
 		} catch (SQLException e) {
 		   System.err.println("Exception: " + e.getMessage());
 	    } catch (Exception e) {
